@@ -19,7 +19,7 @@ services:
       MYSQL_USER: domjudge
       MYSQL_PASSWORD: djpw
       MYSQL_DATABASE: domjudge
-      MYSQL_ROOT_PASSWORD: rootpw
+      MYSQL_ROOT_PASSWORD: LongShenNB
       CONTAINER_TIMEZONE: Asia/Shanghai
     ports:
       - 80:80

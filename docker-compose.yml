@@ -1,0 +1,33 @@
+version: "3"
+services:
+  mariadb:
+    image: mariadb
+    volumes:
+      - ./db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: LongShenNB
+      MYSQL_USER: domjudge
+      MYSQL_PASSWORD: djpw
+      MYSQL_DATABASE: domjudge
+    command: '--max-connections=1000'
+  domserver:
+    image: domjudge/domserver:latest
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    environment:
+      MYSQL_HOST: mariadb
+      MYSQL_USER: domjudge
+      MYSQL_PASSWORD: djpw
+      MYSQL_DATABASE: domjudge
+      MYSQL_ROOT_PASSWORD: rootpw
+      CONTAINER_TIMEZONE: Asia/Shanghai
+    ports:
+      - 80:80
+  judgehost:
+    image: domjudge/judgehost:latest
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    enviroment:
+      DAEMON_ID: 0
+      CONTAINER_TIMEZONE: Asia/Shanghai
+    privileged: true
